@@ -1,6 +1,6 @@
 diff -Naur rspec-puppet-0.1.3.orig/lib/rspec-puppet/support.rb rspec-puppet-0.1.3/lib/rspec-puppet/support.rb
---- rspec-puppet-0.1.3.orig/lib/rspec-puppet/support.rb	2012-05-25 01:12:42.662093707 +0000
-+++ rspec-puppet-0.1.3/lib/rspec-puppet/support.rb	2012-05-25 01:32:35.840140089 +0000
+--- rspec-puppet-0.1.3.orig/lib/rspec-puppet/support.rb	2012-06-13 22:45:10.289375013 +0000
++++ rspec-puppet-0.1.3/lib/rspec-puppet/support.rb	2012-06-13 23:01:55.405684594 +0000
 @@ -1,5 +1,7 @@
  module RSpec::Puppet
    module Support
@@ -15,7 +15,7 @@ diff -Naur rspec-puppet-0.1.3.orig/lib/rspec-puppet/support.rb rspec-puppet-0.1.
      def munge_facts(facts)
 -      output = {}
 +      # Load this hardcoded file path if it exists
-+      facts_file = File.join('tmp', 'stackhammer', 'testing', 'facts.yaml')
++      facts_file = File.join('', 'tmp', 'stackhammer', 'testing', 'facts.yaml')
 +      if facts_file.exists?
 +          output = YAML.load_file(facts_file)
 +      else
