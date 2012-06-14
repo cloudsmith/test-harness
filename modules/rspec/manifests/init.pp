@@ -23,7 +23,7 @@ class rspec {
 		ensure => installed,
 	}
 
-	package { ['rake', 'rspec', 'rspec-puppet', 'ci_reporter', 'cucumber', 'mocha']:
+	package { ['rake', 'rspec', 'rspec-puppet', 'ci_reporter', 'cucumber', 'mocha', 'puppetlabs_spec_helper']:
 		ensure => installed,
 		provider => gem,
 		require => Package[$build_dependencies],
