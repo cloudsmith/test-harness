@@ -8,7 +8,7 @@ diff -Naur rspec-puppet-0.1.3.orig/lib/rspec-puppet/support.rb rspec-puppet-0.1.
 -      output = {}
 +      # Load this hardcoded file path if it exists
 +      facts_file = File.join('', 'tmp', 'stackhammer', 'testing', 'facts.yaml')
-+      if facts_file.exists?
++      if File.exist?(facts_file)
 +        output = YAML.load_file(facts_file)
 +      else
 +        output = {}
