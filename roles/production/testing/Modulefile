@@ -1,0 +1,4 @@
+name 'fhrbek-testing'
+version '0.0.0'
+
+dependency 'cloudsmith/rspec', '>=0.0.1'

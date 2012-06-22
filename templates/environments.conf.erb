@@ -1,0 +1,5 @@
+
+[production]
+	modulepath = $confdir/roles/production:$confdir/modules<%= extra_modulepath %>
+	manifest = <% if override_manifest.empty? %>$confdir/manifests/site.pp<% else %><%= override_manifest %><% end %>
+

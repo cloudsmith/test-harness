@@ -1,0 +1,23 @@
+{
+  "metaVersion": "1.1.3",
+  "accessKey": "AKIAICN7OIIM66ZHQ3MA",
+  "puppetVersion": "PUPPET27",
+  "environments": [
+    {
+      "siteLocation": "manifests",
+      "moduleLocations": [
+        "modules"
+      ],
+      "nodes": [
+        {
+          "type": "T1_MICRO",
+          "deployState": "RUNNING",
+          "image": "ami-31814f58",
+          "role": "testing",
+          "name": "testnode"
+        }
+      ],
+      "name": "production"
+    }
+  ]
+}
