@@ -1,3 +1,0 @@
-class testing {
-	include 'rspec'
-}
