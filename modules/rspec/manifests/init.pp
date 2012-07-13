@@ -16,17 +16,36 @@ class rspec {
 		ensure => installed,
 	} -> Package<| provider == gem |>
 
-
 	$build_dependencies = [ 'gcc', 'make', 'ruby-devel' ]
 
 	package { [$build_dependencies]:
 		ensure => installed,
 	}
 
-	package { ['rake', 'rspec', 'rspec-puppet', 'ci_reporter', 'cucumber', 'mocha', 'puppetlabs_spec_helper']:
+	package { 'bundler':
 		ensure => installed,
 		provider => gem,
-		require => Package[$build_dependencies],
+	}
+
+	$rspec_bundle_dir = '/var/lib/rspec_bundle'
+
+	file { $rspec_bundle_dir:
+		ensure => directory,
+		mode => '0755',
+	}
+
+	file { "${rspec_bundle_dir}/Gemfile":
+		source => 'puppet:///modules/rspec/Gemfile',
+		mode => '0644',
+	}
+
+	exec { 'install-rspec_bundle':
+		unless => 'bundle check',
+		command => 'bundle install',
+		cwd => $rspec_bundle_dir,
+		timeout => 0,
+		path => ['/usr/local/bin', '/bin', '/usr/bin'],
+		require => [Package['bundler'], File["${rspec_bundle_dir}/Gemfile"], Package[$build_dependencies]],
 	}
 
 	$facts_injection_patch = '/usr/local/lib/facts_injection.patch'
@@ -47,6 +66,6 @@ class rspec {
 		command => "patch --force --quiet --strip=1 --input=\"${facts_injection_patch}\"",
 		cwd => '/usr/lib/ruby/gems/1.8/gems/rspec-puppet-0.1.3',
 		path => ['/usr/local/bin', '/bin', '/usr/bin'],
-		require => [Package['patch', 'rspec-puppet'], File[$facts_injection_patch]],
+		require => [Package['patch'], Exec['install-rspec_bundle'], File[$facts_injection_patch]],
 	}
 }
