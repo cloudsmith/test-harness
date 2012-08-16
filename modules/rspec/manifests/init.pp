@@ -14,7 +14,7 @@
 class rspec {
 	package { 'rubygems':
 		ensure => installed,
-	} -> Package<| provider == gem |>
+	} -> Package<| provider == 'gem' |>
 
 	$build_dependencies = [ 'gcc', 'make', 'ruby-devel' ]
 
@@ -24,7 +24,7 @@ class rspec {
 
 	package { 'bundler':
 		ensure => installed,
-		provider => gem,
+		provider => 'gem',
 	}
 
 	$rspec_bundle_dir = '/var/lib/rspec_bundle'
@@ -52,9 +52,9 @@ class rspec {
 
 	file { $facts_injection_patch:
 		source => 'puppet:///modules/rspec/facts_injection.patch',
-		owner => root,
-		group => root,
-		mode => 0644,
+		owner => 'root',
+		group => 'root',
+		mode => '0644',
 	}
 
 	package { 'patch':
@@ -67,5 +67,12 @@ class rspec {
 		cwd => '/usr/lib/ruby/gems/1.8/gems/rspec-puppet-0.1.3',
 		path => ['/usr/local/bin', '/bin', '/usr/bin'],
 		require => [Package['patch'], Exec['install-rspec_bundle'], File[$facts_injection_patch]],
+	}
+
+	file { "${settings::confdir}/hiera.yaml":
+		ensure => present,
+		owner => 'root',
+		group => 'root',
+		mode => '0644',
 	}
 }
