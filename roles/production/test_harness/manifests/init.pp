@@ -1,3 +1,3 @@
 class test_harness {
-	include 'rspec'
+  include 'rspec'
 }
