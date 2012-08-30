@@ -70,7 +70,7 @@ class rspec {
 	}
 
 	file { "${settings::confdir}/hiera.yaml":
-		ensure => present,
+		content => ":backends:\n  - yaml\n",
 		owner => 'root',
 		group => 'root',
 		mode => '0644',
