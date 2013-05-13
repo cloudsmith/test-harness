@@ -1,4 +1,7 @@
 name 'fhrbek-test_harness'
 version '0.0.0'
 
+author 'Cloudsmith Inc.'
+license 'Apache License 2.0'
+
 dependency 'cloudsmith/rspec', '>=0.0.1'
